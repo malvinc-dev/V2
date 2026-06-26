@@ -1,0 +1,24 @@
+{
+  "name": "malvin-c-vme",
+  "version": "1.0.0",
+  "description": "Malvin C VME WhatsApp Bot by Handsome Tech Zimbabwe",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.9",
+    "axios": "^1.6.0",
+    "express": "^4.18.2",
+    "fs-extra": "^11.1.1",
+    "pino": "^8.15.0",
+    "yt-search": "^2.10.4",
+    "fluent-ffmpeg": "^2.1.2",
+    "ffmpeg-static": "^5.2.0",
+    "node-fetch": "^2.7.0",
+    "qrcode-terminal": "^0.12.0"
+  },
+  "engines": { "node": ">=18.0.0" },
+  "author": "Handsome Tech Zimbabwe",
+  "license": "MIT"
+}
