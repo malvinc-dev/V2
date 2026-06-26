@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Malvin C VME | Handsome Tech Zimbabwe 🇿🇼</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0a14;--bg2:#130e1f;--bg3:#1a1228;
+  --p1:#7c3aed;--p2:#9d4edd;--p3:#c77dff;--p4:#e0aaff;
+  --glow:rgba(157,78,221,0.35);--glass:rgba(124,58,237,0.08);
+  --border:rgba(157,78,221,0.22);--text:#f0e6ff;--muted:#9b8abf;
+  --green:#25d366;--gh:#e6edf3;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:
+  radial-gradient(ellipse 80% 50% at 15% 10%,rgba(124,58,237,.18) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 40% at 85% 80%,rgba(157,78,221,.12) 0%,transparent 60%),
+  radial-gradient(ellipse 50% 60% at 50% 50%,rgba(199,125,255,.05) 0%,transparent 70%);
+  pointer-events:none;z-index:0}
+/* particles */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;background:var(--p3);border-radius:50%;animation:floatUp linear infinite;opacity:0}
+@keyframes floatUp{0%{transform:translateY(100vh);opacity:0}10%{opacity:.5}90%{opacity:.5}100%{transform:translateY(-10vh) translateX(30px);opacity:0}}
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 40px;background:rgba(13,10,20,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Orbitron',monospace;font-size:1rem;font-weight:900;color:var(--p3);letter-spacing:2px;text-shadow:0 0 20px var(--glow)}
+.nav-links{display:flex;gap:6px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.82rem;padding:6px 13px;border-radius:20px;border:1px solid transparent;transition:all .2s;font-weight:500}
+.nav-links a:hover{color:var(--p3);border-color:var(--border);background:var(--glass)}
+/* hero */
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 20px 80px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--border);border-radius:30px;padding:6px 16px;font-size:.75rem;color:var(--p3);margin-bottom:26px;letter-spacing:1px;font-weight:600;text-transform:uppercase}
+.badge-dot{width:7px;height:7px;background:var(--p2);border-radius:50%;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.6)}}
+.hero h1{font-family:'Orbitron',monospace;font-size:clamp(2.2rem,7vw,5rem);font-weight:900;line-height:1.08;margin-bottom:10px;background:linear-gradient(135deg,#fff 0%,var(--p3) 55%,var(--p4) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 30px rgba(157,78,221,.5))}
+.hero-sub{font-family:'Orbitron',monospace;font-size:clamp(.85rem,2.5vw,1.1rem);color:var(--p3);letter-spacing:4px;margin-bottom:18px;font-weight:400}
+.hero p{color:var(--muted);font-size:.97rem;max-width:520px;line-height:1.75;margin-bottom:38px}
+/* stats */
+.stats{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-bottom:44px}
+.stat-num{font-family:'Orbitron',monospace;font-size:1.7rem;font-weight:900;color:var(--p3);text-shadow:0 0 20px var(--glow)}
+.stat-label{font-size:.7rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+.stat-div{width:1px;background:var(--border);align-self:stretch}
+/* buttons */
+.hero-btns,.btn-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:600;text-decoration:none;cursor:pointer;border:none;transition:all .25s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;white-space:nowrap}
+.btn::after{content:'';position:absolute;inset:0;background:#fff;opacity:0;transition:opacity .2s}
+.btn:hover::after{opacity:.07}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff;box-shadow:0 4px 22px rgba(124,58,237,.4)}
+.btn-primary:hover{box-shadow:0 8px 32px rgba(124,58,237,.6);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--p3);border:1px solid var(--border)}
+.btn-outline:hover{background:var(--glass);border-color:var(--p2);transform:translateY(-2px)}
+.btn-gh{background:rgba(230,237,243,.07);color:var(--gh);border:1px solid rgba(230,237,243,.14)}
+.btn-gh:hover{background:rgba(230,237,243,.13);transform:translateY(-2px)}
+.btn-wa{background:rgba(37,211,102,.1);color:var(--green);border:1px solid rgba(37,211,102,.24)}
+.btn-wa:hover{background:rgba(37,211,102,.18);box-shadow:0 4px 18px rgba(37,211,102,.22);transform:translateY(-2px)}
+.btn-red{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+.btn-red:hover{background:rgba(239,68,68,.18);transform:translateY(-2px)}
+/* divider */
+.divider{position:relative;z-index:1;width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0}
+/* sections */
+section{position:relative;z-index:1;padding:72px 20px;max-width:1100px;margin:0 auto}
+.sec-label{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--p2);font-weight:600;margin-bottom:8px}
+.sec-title{font-family:'Orbitron',monospace;font-size:clamp(1.3rem,3.5vw,2rem);font-weight:700;color:var(--text);margin-bottom:8px}
+.sec-desc{color:var(--muted);font-size:.93rem;line-height:1.7;max-width:520px;margin-bottom:36px}
+/* server cards */
+.grid-servers{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
+.srv-card{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:14px;transition:all .25s;position:relative;overflow:hidden}
+.srv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--p1),var(--p3));opacity:0;transition:opacity .25s}
+.srv-card:hover{border-color:var(--p2);transform:translateY(-3px);box-shadow:0 8px 28px rgba(124,58,237,.18)}
+.srv-card:hover::before{opacity:1}
+.srv-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--p1),var(--p2));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;box-shadow:0 4px 14px rgba(124,58,237,.3)}
+.srv-info{flex:1;min-width:0}
+.srv-info h3{font-family:'Orbitron',monospace;font-size:.82rem;font-weight:700;color:var(--text);letter-spacing:1px}
+.srv-info p{font-size:.73rem;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.srv-right{display:flex;flex-direction:column;align-items:flex-end;gap:7px;flex-shrink:0}
+.online{display:flex;align-items:center;gap:5px;font-size:.68rem;color:#4ade80;font-weight:600;letter-spacing:1px}
+.online::before{content:'';width:6px;height:6px;background:#4ade80;border-radius:50%;animation:blink 1.5s infinite;box-shadow:0 0 6px #4ade80}
+.srv-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff;border-radius:8px;font-size:.75rem;font-weight:600;text-decoration:none;transition:all .2s;box-shadow:0 3px 10px rgba(124,58,237,.28)}
+.srv-btn:hover{box-shadow:0 5px 18px rgba(124,58,237,.5);transform:scale(1.05)}
+/* features */
+.grid-features{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:13px}
+.feat-card{background:var(--glass);border:1px solid var(--border);border-radius:12px;padding:20px 16px;transition:all .25s}
+.feat-card:hover{border-color:var(--p2);transform:translateY(-3px);box-shadow:0 6px 22px rgba(124,58,237,.14)}
+.feat-icon{font-size:1.7rem;margin-bottom:10px}
+.feat-card h3{font-size:.88rem;font-weight:600;color:var(--text);margin-bottom:5px}
+.feat-card p{font-size:.76rem;color:var(--muted);line-height:1.5}
+/* commands */
+.grid-cmds{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:7px}
+.cmd-tag{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 11px;font-size:.75rem;color:var(--p3);font-family:'Orbitron',monospace;transition:all .2s;display:flex;align-items:center;gap:6px;letter-spacing:.3px}
+.cmd-tag:hover{background:var(--glass);border-color:var(--p2);transform:scale(1.02)}
+.cmd-dot{width:5px;height:5px;background:var(--p2);border-radius:50%;flex-shrink:0}
+/* contact */
+.grid-contact{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.contact-card{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:22px 20px;display:flex;flex-direction:column;gap:13px;transition:all .25s}
+.contact-card:hover{border-color:var(--p2);transform:translateY(-3px);box-shadow:0 8px 26px rgba(124,58,237,.14)}
+.c-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.c-icon.wa{background:rgba(37,211,102,.13)}
+.c-icon.gh{background:rgba(230,237,243,.07)}
+.c-icon.pu{background:rgba(124,58,237,.15)}
+.contact-card h3{font-size:.92rem;font-weight:600;color:var(--text)}
+.contact-card p{font-size:.76rem;color:var(--muted);line-height:1.55}
+/* free apis badge */
+.api-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:10px}
+.api-tag{background:var(--bg3);border:1px solid rgba(74,222,128,.15);border-radius:8px;padding:10px 13px;display:flex;align-items:center;gap:8px;font-size:.78rem;color:#4ade80}
+.api-tag span{color:var(--muted);font-size:.73rem}
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:all .6s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+/* footer */
+footer{position:relative;z-index:1;text-align:center;padding:36px 20px;border-top:1px solid var(--border);background:rgba(13,10,20,.6)}
+.footer-logo{font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:900;color:var(--p3);margin-bottom:8px}
+footer p{color:var(--muted);font-size:.8rem;line-height:1.7}
+footer a{color:var(--p3);text-decoration:none}
+footer a:hover{text-decoration:underline}
+@media(max-width:640px){
+  nav{padding:12px 16px}
+  .nav-links{display:none}
+  .stats{gap:16px}
+  .stat-div{display:none}
+  .grid-servers{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⚡ MALVIN C VME</div>
+  <ul class="nav-links">
+    <li><a href="#servers">Servers</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#commands">Commands</a></li>
+    <li><a href="#apis">Free APIs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span>🇿🇼</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge"><span class="badge-dot"></span> Bot is Live &amp; Online</div>
+  <h1>MALVIN C VME</h1>
+  <div class="hero-sub">WhatsApp Multi-Device Bot</div>
+  <p>The most powerful WhatsApp MD bot from Zimbabwe 🇿🇼 — 781+ commands, 40+ free AI models, group tools, fun commands and much more. Built by Handsome Tech Zimbabwe.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">781+</div><div class="stat-label">Commands</div></div>
+    <div class="stat-div"></div>
+    <div class="stat"><div class="stat-num">10</div><div class="stat-label">Servers</div></div>
+    <div class="stat-div"></div>
+    <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Free AIs</div></div>
+    <div class="stat-div"></div>
+    <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Uptime</div></div>
+  </div>
+
+  <div class="hero-btns">
+    <a href="#servers" class="btn btn-primary">🚀 Deploy Bot</a>
+    <a href="#commands" class="btn btn-outline">📜 Commands</a>
+    <a href="https://github.com/malvin2010" target="_blank" class="btn btn-gh">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a href="https://wa.me/263776676755" target="_blank" class="btn btn-wa">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SERVERS -->
+<section id="servers">
+  <div class="reveal">
+    <div class="sec-label">🌐 Hosting</div>
+    <div class="sec-title">Choose Your Server</div>
+    <div class="sec-desc">10 servers available. Click Deploy on any server to host your own Malvin C VME bot. Railway and Koyeb are recommended for beginners.</div>
+  </div>
+
+  <div class="grid-servers reveal">
+
+    <div class="srv-card">
+      <div class="srv-icon">🚂</div>
+      <div class="srv-info"><h3>SERVER 1</h3><p>Railway · Node.js · Free Tier · Recommended</p></div>
+      <div class="srv-right">
+        <div class="online">ONLINE</div>
+        <a href="https://railway.app/new/template" target="_blank" class="srv-btn">🚀 Deploy</a>
+      </div>
+    </div>
+
+    <div class="srv-card">
+      <div class="srv-icon">🟣</div>
+      <div class="srv-info"><h3>SERVER 2</h3><p>Render · Auto-deploy · Free · Always on</p></div>
+      <div class="srv-right">
+        <div class="online">ONLINE</div>
+        <a href="https://render.com/deploy" target="_blank" class="srv-btn">🚀 Deploy</a>
+      </div>
+    </div>
+
+    <div class="srv-card">
+      <div class="srv-icon">🎯</div>
+      <div class="srv-info"><h3>SERVER 3</h3><p>Koyeb · Global edge · Free · Fast</p></div>
+      <div class="srv-right">
+        <div class="online">ONLINE</div>
+        <a href="https://app.koyeb.com" target="_blank" class="srv-btn">🚀 Deploy</a>
+      </div>
+    </div>
+
+    <div class="srv-card">
+      <div class="srv-icon">🦕</div>
+      <div class="srv-info"><h3>SERVER 4</h3><p>Pterodactyl · Panel · Daki / Bloom hosting</p></div>
+      <div class="srv-right">
+        <div class="online">ONLINE</div>
+        <a href="https://github.com/malvin2010" target="_blank" class="srv-btn">📦 Files</a>
+      </div>
+    </div>
+
+    <div class="srv-card">
+      <div class="srv-icon">☁️</div>
+      <div class="srv-info"><h3>SERVER 5</h3><p>Heroku · Cloud platform · Easy setup</p></div>
+      <div class="srv-right">
+        <div class="online">ONLINE</div>
+        <a href="https://heroku.com" target="_blank" class="srv-btn">🚀 Deploy</a>
+      </div>
+    </div>
+
+    <div class="srv-card">
+      <div class="srv-icon">⚡</div>
+      <div class="srv-info"><h3>SERVER 6</h3><p>Cyclic · Serverless · Node.js native</p></div>
+      <div class="srv-right">
+        <div class="online">ONLINE</div>
+        <a href="https://cyclic.sh" target="_blank" class="srv-btn">🚀 Deploy</a>
+      </div>
+    </div>
+
+    <div class="srv-card">
+      <div class="srv-icon">🌊</div>
+      <div class="srv-info"><h3>SERVER 7</h3><p>DigitalOcean · VPS · $4/mo · Full control</p></div>
+      <div class="srv-right">
+        <div class="online">ONLINE</div>
+        <a href="https://digitalocean.com" target="_blank" class="srv-btn">🚀 Deploy</a>
+      </div>
+    </div>
+
+    <div class="srv-card">
+      <div class="srv-icon">🔷</div>
+      <div class="srv-info"><h3>SERVER 8</h3><p>Oracle Cloud · Always Free · VPS</p></div>
+      <div class="srv-right">
+        <div class="online">ONLINE</div>
+        <a href="https://cloud.oracle.com" target="_blank" class="srv-btn">🚀 Deploy</a>
+      </div>
+    </div>
+
+    <div class="srv-card">
+      <div class="srv-icon">🤖</div>
+      <div class="srv-info"><h3>SERVER 9</h3><p>Replit · Browser IDE · Instant deploy</p></div>
+      <div class="srv-right">
+        <div class="online">ONLINE</div>
+        <a href="https://replit.com" target="_blank" class="srv-btn">🚀 Deploy</a>
+      </div>
+    </div>
+
+    <div class="srv-card">
+      <div class="srv-icon">🇿🇼</div>
+      <div class="srv-info"><h3>SERVER 10</h3><p>Custom VPS · Owner managed · Contact us</p></div>
+      <div class="srv-right">
+        <div class="online">ONLINE</div>
+        <a href="https://wa.me/263776676755" target="_blank" class="srv-btn">💬 Contact</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="reveal">
+    <div class="sec-label">✨ Capabilities</div>
+    <div class="sec-title">Everything in One Bot</div>
+    <div class="sec-desc">Built for power users and group admins. Every feature works out of the box — no API keys needed.</div>
+  </div>
+
+  <div class="grid-features reveal">
+    <div class="feat-card"><div class="feat-icon">🤖</div><h3>40+ Free AI Models</h3><p>GPT, Gemini, Claude, DeepSeek, LLaMA, Grok and more — all using free APIs, no keys needed.</p></div>
+    <div class="feat-card"><div class="feat-icon">🎵</div><h3>Media Downloads</h3><p>YouTube, TikTok, Instagram, Facebook, Twitter, MediaFire — fast and free downloads.</p></div>
+    <div class="feat-card"><div class="feat-icon">👥</div><h3>Group Management</h3><p>Anti-link, anti-delete, anti-spam, welcome/goodbye, polls, auto-approve and more.</p></div>
+    <div class="feat-card"><div class="feat-icon">🖼️</div><h3>Image Tools</h3><p>Sticker maker, background remover, Remini enhancer, AI image generator — all free.</p></div>
+    <div class="feat-card"><div class="feat-icon">🎮</div><h3>Games &amp; Fun</h3><p>Truth or Dare, Trivia, Word Scramble, Rock Paper Scissors, Ship meter and 50+ more.</p></div>
+    <div class="feat-card"><div class="feat-icon">🎨</div><h3>Custom Menu Image</h3><p>Set your own menu banner with .setmenuimage — personalise the bot to your brand.</p></div>
+    <div class="feat-card"><div class="feat-icon">🔗</div><h3>Pairing Code</h3><p>No QR scanning. Use .pair 263xxxxxxx to link any number instantly from WhatsApp.</p></div>
+    <div class="feat-card"><div class="feat-icon">👑</div><h3>You Are the Owner</h3><p>Whoever pairs the bot owns it. No config files needed — just pair and go.</p></div>
+    <div class="feat-card"><div class="feat-icon">🚀</div><h3>Auto-Join Groups</h3><p>Bot automatically joins your groups and channels right after connecting.</p></div>
+    <div class="feat-card"><div class="feat-icon">⚙️</div><h3>Full Settings</h3><p>Auto-read, auto-typing, auto-react, anti-call, status view — all controllable from chat.</p></div>
+    <div class="feat-card"><div class="feat-icon">🕌</div><h3>Islamic Tools</h3><p>Quran verses, Hadith, Prayer times for any city, Islamic Q&amp;A — all free APIs.</p></div>
+    <div class="feat-card"><div class="feat-icon">🇿🇼</div><h3>Made in Zimbabwe</h3><p>Proudly built by Handsome Tech Zimbabwe. Local support, global quality.</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMMANDS -->
+<section id="commands">
+  <div class="reveal">
+    <div class="sec-label">📜 Commands</div>
+    <div class="sec-title">781+ Commands</div>
+    <div class="sec-desc">A preview of what's available. Type .menu in WhatsApp for the full list with descriptions.</div>
+  </div>
+
+  <div class="grid-cmds reveal">
+    <div class="cmd-tag"><span class="cmd-dot"></span>.play</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.song</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.ytv</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.tiktok</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.instagram</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.facebook</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.twitter</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.lyrics</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.tts</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.sticker</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.remini</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.removebg</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.imagine</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.wallpaper</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.ai</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.gpt4</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.gemini</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.claude</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.deepseek</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.llama3</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.grok</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.mistral</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.chatbot</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.translate</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.grammar</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.summarize</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.antilink</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.antidelete</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.tagall</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.hidetag</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.kick</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.promote</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.demote</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.mute</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.poll</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.ginfo</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.pair</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.broadcast</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.ban</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.sudo</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.setmenuimage</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.menutheme</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.settagline</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.weather</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.wiki</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.define</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.quran</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.hadith</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.prayertime</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.bible</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.joke</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.roast</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.ship</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.lovetest</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.8ball</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.truth</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.dare</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.hack</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.horoscope</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.trivia</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.rps</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.riddle</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.mathquiz</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.github</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.qr</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.vv</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.alive</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.ping</div>
+    <div class="cmd-tag"><span class="cmd-dot"></span>.menu</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FREE APIS -->
+<section id="apis">
+  <div class="reveal">
+    <div class="sec-label">🔓 No Keys Needed</div>
+    <div class="sec-title">All Free APIs Built In</div>
+    <div class="sec-desc">Every AI and tool in this bot uses a completely free public API. No signup, no credit card, no .env file needed.</div>
+  </div>
+
+  <div class="api-grid reveal">
+    <div class="api-tag">✅ <span>Pollinations AI — Free GPT/Image</span></div>
+    <div class="api-tag">✅ <span>Waifu.pics — Free Anime Images</span></div>
+    <div class="api-tag">✅ <span>Meme-API — Free Memes</span></div>
+    <div class="api-tag">✅ <span>LanguageTool — Free Grammar</span></div>
+    <div class="api-tag">✅ <span>MyMemory — Free Translation</span></div>
+    <div class="api-tag">✅ <span>wttr.in — Free Weather</span></div>
+    <div class="api-tag">✅ <span>Quotable — Free Quotes</span></div>
+    <div class="api-tag">✅ <span>JokeAPI — Free Jokes</span></div>
+    <div class="api-tag">✅ <span>AlQuran Cloud — Free Quran</span></div>
+    <div class="api-tag">✅ <span>Aladhan — Free Prayer Times</span></div>
+    <div class="api-tag">✅ <span>Bible API — Free Bible Verses</span></div>
+    <div class="api-tag">✅ <span>DictionaryAPI — Free Definitions</span></div>
+    <div class="api-tag">✅ <span>Wikipedia REST — Free Wiki</span></div>
+    <div class="api-tag">✅ <span>TikWM — Free TikTok Download</span></div>
+    <div class="api-tag">✅ <span>StreamElements — Free TTS</span></div>
+    <div class="api-tag">✅ <span>QRServer — Free QR Codes</span></div>
+    <div class="api-tag">✅ <span>GitHub API — Free User Search</span></div>
+    <div class="api-tag">✅ <span>Unsplash — Free Images</span></div>
+    <div class="api-tag">✅ <span>TinyURL — Free URL Shortener</span></div>
+    <div class="api-tag">✅ <span>OpenTDB — Free Trivia</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="sec-label">📞 Reach Out</div>
+    <div class="sec-title">Contact &amp; Links</div>
+    <div class="sec-desc">Get in touch on WhatsApp for setup help, or visit GitHub for source files and updates.</div>
+  </div>
+
+  <div class="grid-contact reveal">
+
+    <div class="contact-card">
+      <div class="c-icon wa">📱</div>
+      <div>
+        <h3>WhatsApp — Main</h3>
+        <p>+263 776 676 755<br/>Chat directly with the developer for help and support.</p>
+      </div>
+      <a href="https://wa.me/263776676755" target="_blank" class="btn btn-wa" style="align-self:flex-start">💬 Chat Now</a>
+    </div>
+
+    <div class="contact-card">
+      <div class="c-icon wa">📱</div>
+      <div>
+        <h3>WhatsApp — Support</h3>
+        <p>+263 780 026 088<br/>Bot setup, troubleshooting and technical support.</p>
+      </div>
+      <a href="https://wa.me/263780026088" target="_blank" class="btn btn-wa" style="align-self:flex-start">💬 Chat Now</a>
+    </div>
+
+    <div class="contact-card">
+      <div class="c-icon gh">🐙</div>
+      <div>
+        <h3>GitHub</h3>
+        <p>github.com/malvin2010<br/>Source code, releases, updates and more Handsome Tech projects.</p>
+      </div>
+      <a href="https://github.com/malvin2010" target="_blank" class="btn btn-gh" style="align-self:flex-start">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View GitHub
+      </a>
+    </div>
+
+    <div class="contact-card">
+      <div class="c-icon pu">🤖</div>
+      <div>
+        <h3>Download Bot</h3>
+        <p>Get the full Malvin C VME bot package and deploy it on your own server in minutes.</p>
+      </div>
+      <div class="btn-row" style="align-self:flex-start">
+        <a href="https://github.com/malvin2010" target="_blank" class="btn btn-primary">📦 Download</a>
+        <a href="#servers" class="btn btn-outline">🚀 Servers</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">⚡ MALVIN C VME</div>
+  <p style="margin-top:8px">
+    Built with 💜 by <strong style="color:var(--p3)">Handsome Tech Zimbabwe</strong> 🇿🇼<br/>
+    <a href="https://github.com/malvin2010">github.com/malvin2010</a> ·
+    <a href="https://wa.me/263776676755">+263 776 676 755</a> ·
+    <a href="https://wa.me/263780026088">+263 780 026 088</a>
+  </p>
+  <p style="margin-top:10px;font-size:.7rem">© 2025 Malvin C VME · Handsome Tech Zimbabwe · All rights reserved 🇿🇼</p>
+</footer>
+
+<script>
+// Particles
+const pc = document.getElementById('particles');
+for(let i=0;i<45;i++){
+  const p=document.createElement('div');
+  p.className='particle';
+  p.style.cssText=`left:${Math.random()*100}vw;width:${Math.random()*3+1}px;height:${Math.random()*3+1}px;animation-duration:${Math.random()*15+8}s;animation-delay:${Math.random()*15}s`;
+  pc.appendChild(p);
+}
+// Scroll reveal
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*90)});
+},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'})});
+});
+</script>
+</body>
+</html>
